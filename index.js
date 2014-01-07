@@ -1,4 +1,13 @@
 
+/**
+ * Filter on responses.
+ *
+ *  - `name` querystring param name [filter]
+ *
+ * @param {Object} opts
+ * @return {GeneratorFunction}
+ * @api public
+ */
 
 module.exports = function(opts){
   var opts = opts || {};
@@ -13,7 +22,7 @@ module.exports = function(opts){
     if (!body || 'object' != typeof body) return;
 
     // check for filter
-    var filter = this.query[name];
+    var filter = this.query[name] || this.filter;
     if (!filter) return;
     filter = filter.split(/ *, */);
 
