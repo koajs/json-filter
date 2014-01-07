@@ -8,12 +8,12 @@
     "middleware",
     "performance"
   ],
-  "dependencies": {
-    "koa": "~0.2.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "koa": "~0.2.1",
+    "supertest": "~0.8.2"
   },
   "license": "MIT"
 }
