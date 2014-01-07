@@ -2,7 +2,7 @@
 # koa-json-filter
 
   Middleware allowing the client to filter the response to only what they need,
-  reducing the amount of traffic over the wire.
+  reducing the amount of traffic over the wire using the `?filter=foo,bar,baz` querystring parameter.
 
   JSONSelect would also be great for this but I find it's a little too complicated for the average use-case,
   so this is just a simple key filter.
@@ -12,6 +12,15 @@
 ```
 $ npm install koa-json-filter
 ```
+
+## Options
+
+ - `name` querystring param defaulting to "filter"
+
+## Filtering customization
+
+  You may also set `ctx.filter` to an array of names to filter on,
+  for example by using a header field `X-Filter: name,email`.
 
 ## Example
 
