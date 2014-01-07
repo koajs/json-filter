@@ -25,5 +25,13 @@ describe('filter()', function(){
         .expect({ name: 'tobi' }, done);
       })
     })
+
+    describe('with multiple properties', function(){
+      it('should split on commas', function(done){
+        request(app.listen())
+        .get('/?filter=name,packages')
+        .expect({ name: 'tobi', packages: 5 }, done);
+      })
+    })
   })
 })
