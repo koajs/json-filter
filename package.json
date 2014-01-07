@@ -1,13 +1,19 @@
 {
-  "name": "<name>",
+  "name": "koa-json-filter",
   "version": "0.0.1",
-  "repository": "visionmedia/<name>",
-  "description": "",
-  "keywords": [],
-  "dependencies": {},
+  "repository": "koajs/json-filter",
+  "description": "middleware allowing the client to filter the response to only what they need",
+  "keywords": [
+    "koa",
+    "middleware",
+    "performance"
+  ],
+  "dependencies": {
+    "koa": "~0.2.1"
+  },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"  
+    "should": "*"
   },
   "license": "MIT"
 }

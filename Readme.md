@@ -1,12 +1,12 @@
 
-# name
+# koa-json-filter
 
-  description
+  Middleware allowing the client to filter the response to only what they need
 
 ## Installation
 
 ```
-$ npm install name
+$ npm install koa-json-filter
 ```
 
 ## Example
