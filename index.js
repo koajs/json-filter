@@ -24,7 +24,9 @@ module.exports = function(opts){
     // check for filter
     var filter = this.query[name] || this.filter;
     if (!filter) return;
-    filter = filter.split(/ *, */);
+
+    // split
+    if ('string' == typeof filter) filter = filter.split(/ *, */);
 
     // filter array
     if (Array.isArray(body)) {
