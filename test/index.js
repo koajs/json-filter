@@ -36,6 +36,14 @@ app.use(function *(){
 });
 
 describe('filter()', function(){
+  describe('when ?filter is missing', function(){
+    it('should be ignored', function(done){
+      request(app.listen())
+        .get('/')
+        .expect(200, done);
+    })
+  })
+
   describe('when ?filter is present', function(){
     describe('with one property', function(){
       it('should filter that property', function(done){
