@@ -7,13 +7,32 @@ var app = koa();
 
 app.use(filter());
 
-app.use(function *(){
+app.use(function *(next){
+  if ('/array' == this.path) return yield next;
+
   this.body = {
     name: 'tobi',
     email: 'tobi@segment.io',
     packages: 5,
     friends: ['tobi', 'loki', 'jane']
   }
+});
+
+app.use(function *(){
+  this.body = [
+    {
+      name: 'tobi',
+      email: 'tobi@segment.io',
+      packages: 5,
+      friends: ['abby', 'loki', 'jane']
+    },
+    {
+      name: 'loki',
+      email: 'loki@segment.io',
+      packages: 2,
+      friends: ['loki', 'jane']
+    }
+  ]
 });
 
 describe('filter()', function(){
@@ -23,6 +42,14 @@ describe('filter()', function(){
         request(app.listen())
         .get('/?filter=name')
         .expect({ name: 'tobi' }, done);
+      })
+    })
+
+    describe('with an array response', function(){
+      it('should filter each document', function(done){
+        request(app.listen())
+        .get('/array?filter=name')
+        .expect([{ name: 'tobi' }, { name: 'loki' }], done);
       })
     })
 

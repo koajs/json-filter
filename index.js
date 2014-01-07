@@ -19,7 +19,14 @@ module.exports = function(opts){
 
     // filter array
     if (Array.isArray(body)) {
+      this.body = body.map(function(obj){
+        return filter.reduce(function(ret, key){
+          ret[key] = obj[key];
+          return ret;
+        }, {});
+      });
 
+      return;
     }
 
     // filter object
