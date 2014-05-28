@@ -12,8 +12,11 @@
   "devDependencies": {
     "mocha": "*",
     "should": "*",
-    "koa": "~0.2.1",
-    "supertest": "~0.8.2"
+    "koa": "0",
+    "supertest": "0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "test": "make test"
+  }
 }
