@@ -1,4 +1,6 @@
 
+var isObjectStream = require('is-object-stream').readable;
+var Transform = require('stream').Transform;
 /**
  * Filter on responses.
  *
@@ -19,7 +21,7 @@ module.exports = function(opts){
     var body = this.body;
 
     // non-json
-    if (!body || 'object' != typeof body) return;
+    if (!body || 'object' != typeof body) return console.log('nope');
 
     // check for filter
     var filter = this.query[name] || this.filter;
@@ -36,6 +38,21 @@ module.exports = function(opts){
           return ret;
         }, {});
       });
+
+      return;
+    }
+
+    // filter object stream
+    if (isObjectStream(body)) {
+      var transform = this.body = new Transform({ objectMode: true });
+      transform._transform = function (doc, encoding, cb) {
+        this.push(filter.reduce(function (ret, key){
+          ret[key] = doc[key];
+          return ret;
+        }, {}));
+        cb();
+      };
+      body.pipe(transform);
 
       return;
     }

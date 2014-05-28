@@ -13,6 +13,8 @@
 $ npm install koa-json-filter
 ```
 
+For object stream support, you will need to install `koa-json` as well and `app.use()` it before this middleware.
+
 ## Options
 
  - `name` querystring param defaulting to "filter"

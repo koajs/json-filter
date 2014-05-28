@@ -8,8 +8,11 @@
     "middleware",
     "performance"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "is-object-stream": "1"
+  },
   "devDependencies": {
+    "koa-json": "^1.1.0",
     "mocha": "*",
     "should": "*",
     "koa": "0",

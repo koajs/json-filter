@@ -1,5 +1,7 @@
 
+var PassThrough = require('stream').PassThrough;
 var request = require('supertest');
+var json = require('koa-json');
 var filter = require('..');
 var koa = require('koa');
 
@@ -8,17 +10,8 @@ var app = koa();
 app.use(filter());
 
 app.use(function *(next){
-  if ('/array' == this.path) return yield next;
+  if ('/array' != this.path) return yield next;
 
-  this.body = {
-    name: 'tobi',
-    email: 'tobi@segment.io',
-    packages: 5,
-    friends: ['tobi', 'loki', 'jane']
-  }
-});
-
-app.use(function *(){
   this.body = [
     {
       name: 'tobi',
@@ -33,6 +26,37 @@ app.use(function *(){
       friends: ['loki', 'jane']
     }
   ]
+});
+
+app.use(function *(next){
+  if ('/objectstream' != this.path) return yield next;
+
+  // need this mess to stringify the object stream
+  yield* json().call(this, function* () {
+    var stream = this.body = new PassThrough({ objectMode:true });
+    stream.write({
+      name: 'tobi',
+      email: 'tobi@segment.io',
+      packages: 5,
+      friends: ['abby', 'loki', 'jane']
+    });
+    stream.write({
+      name: 'loki',
+      email: 'loki@segment.io',
+      packages: 2,
+      friends: ['loki', 'jane']
+    });
+    stream.end();
+  }.call(this));
+})
+
+app.use(function *(next){
+  this.body = {
+    name: 'tobi',
+    email: 'tobi@segment.io',
+    packages: 5,
+    friends: ['tobi', 'loki', 'jane']
+  }
 });
 
 describe('filter()', function(){
@@ -66,6 +90,14 @@ describe('filter()', function(){
         request(app.listen())
         .get('/?filter=name,packages')
         .expect({ name: 'tobi', packages: 5 }, done);
+      })
+    })
+
+    describe('with an object stream response', function(){
+      it('should filter each document', function(done){
+        request(app.listen())
+        .get('/objectstream?filter=name')
+        .expect([{ name: 'tobi' }, { name: 'loki' }], done);
       })
     })
   })
