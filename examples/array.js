@@ -1,17 +1,16 @@
-
 /**
  * Module dependencies.
  */
 
-var koa = require('koa');
-var filter = require('..');
+const Koa = require('koa');
+const filter = require('..');
 
-var app = koa();
+const app = new Koa();
 
 app.use(filter());
 
-app.use(function *(){
-  this.body = [
+app.use(async ctx => {
+  ctx.body = [
     {
       name: 'tobi',
       email: 'tobi@segment.io',
@@ -36,7 +35,7 @@ app.use(function *(){
       packages: 2,
       friends: ['tobi']
     }
-  ]
+  ];
 });
 
 app.listen(3000);

@@ -1,22 +1,21 @@
-
 /**
  * Module dependencies.
  */
 
-var koa = require('koa');
-var filter = require('..');
+const Koa = require('koa');
+const filter = require('..');
 
-var app = koa();
+const app = new Koa();
 
 app.use(filter());
 
-app.use(function *(){
-  this.body = {
+app.use(async ctx => {
+  ctx.body = {
     name: 'tobi',
     email: 'tobi@segment.io',
     packages: 5,
     friends: ['abby', 'loki', 'jane']
-  }
+  };
 });
 
 app.listen(3000);

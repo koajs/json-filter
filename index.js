@@ -1,28 +1,27 @@
-
 /**
  * Filter on responses.
  *
  *  - `name` querystring param name [filter]
  *
  * @param {Object} opts
- * @return {GeneratorFunction}
+ * @return {Promise}
  * @api public
  */
 
-module.exports = function(opts){
-  var opts = opts || {};
-  var name = opts.name || 'filter';
+module.exports = opts => {
+  const options = opts || {};
+  const name = options.name || 'filter';
 
-  return function *filter(next){
-    yield *next;
+  return async function filter(ctx, next) {
+    await next();
 
-    var body = this.body;
+    const body = ctx.body;
 
     // non-json
     if (!body || 'object' != typeof body) return;
 
     // check for filter
-    var filter = this.query[name] || this.filter;
+    let filter = ctx.query[name] || ctx.filter;
     if (!filter) return;
 
     // split
@@ -30,8 +29,8 @@ module.exports = function(opts){
 
     // filter array
     if (Array.isArray(body)) {
-      this.body = body.map(function(obj){
-        return filter.reduce(function(ret, key){
+      ctx.body = body.map(function(obj) {
+        return filter.reduce(function(ret, key) {
           ret[key] = obj[key];
           return ret;
         }, {});
@@ -41,9 +40,9 @@ module.exports = function(opts){
     }
 
     // filter object
-    this.body = filter.reduce(function(ret, key){
+    ctx.body = filter.reduce(function(ret, key) {
       ret[key] = body[key];
       return ret;
     }, {});
-  }
+  };
 };

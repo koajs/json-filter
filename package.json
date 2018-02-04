@@ -2,7 +2,7 @@
   "name": "koa-json-filter",
   "version": "0.0.1",
   "repository": "koajs/json-filter",
-  "description": "middleware allowing the client to filter the response to only what they need",
+  "description": "Middleware allowing the client to filter the response to only what they need",
   "keywords": [
     "koa",
     "middleware",
@@ -10,17 +10,20 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "istanbul-harmony": "0",
-    "mocha": "1",
-    "should": "3",
-    "koa": "0",
-    "supertest": "0"
+    "istanbul-harmony": "^0.3.16",
+    "koa": "^2.4.1",
+    "koa-router": "^7.4.0",
+    "mocha": "^5.0.0",
+    "supertest": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 7.6.0"
   },
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test mocha --harmony-generators --require should --reporter spec",
-    "test-cov": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should",
-    "test-travis": "NODE_ENV=test node --harmony-generators ./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha --report lcovonly -- --require should"
+    "test": "mocha",
+    "test-cov": "istanbul cover _mocha",
+    "test-travis": "istanbul cover _mocha --report lcovonly"
   },
   "files": ["index.js"]
 }
