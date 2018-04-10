@@ -29,8 +29,8 @@ module.exports = opts => {
 
     // filter array
     if (Array.isArray(body)) {
-      ctx.body = body.map(function(obj) {
-        return filter.reduce(function(ret, key) {
+      ctx.body = body.map(obj => {
+        return filter.reduce((ret, key) => {
           ret[key] = obj[key];
           return ret;
         }, {});
@@ -40,7 +40,7 @@ module.exports = opts => {
     }
 
     // filter object
-    ctx.body = filter.reduce(function(ret, key) {
+    ctx.body = filter.reduce((ret, key) => {
       ret[key] = body[key];
       return ret;
     }, {});

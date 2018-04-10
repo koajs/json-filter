@@ -1,14 +1,14 @@
 const request = require('supertest');
 const app = require('./app');
 
-describe('filter()', function() {
+describe('filter()', () => {
   let server;
 
   beforeEach(() => (server = app.listen()));
   afterEach(() => server.close());
 
   describe('when ?filter is missing', () => {
-    it('should be ignored', async () => {
+    it('should be ignored', async() => {
       await request(server)
         .get('/')
         .expect(200);
@@ -17,7 +17,7 @@ describe('filter()', function() {
 
   describe('when ?filter is present', () => {
     describe('with one property', () => {
-      it('should filter that property', async () => {
+      it('should filter that property', async() => {
         await request(server)
           .get('/?filter=name')
           .expect({ name: 'tobi' });
@@ -25,7 +25,7 @@ describe('filter()', function() {
     });
 
     describe('with an array response', () => {
-      it('should filter each document', async () => {
+      it('should filter each document', async() => {
         await request(server)
           .get('/array?filter=name')
           .expect([{ name: 'tobi' }, { name: 'loki' }]);
@@ -33,7 +33,7 @@ describe('filter()', function() {
     });
 
     describe('with multiple properties', () => {
-      it('should split on commas', async () => {
+      it('should split on commas', async() => {
         request(server)
           .get('/?filter=name,packages')
           .expect({ name: 'tobi', packages: 5 });
