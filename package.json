@@ -1,6 +1,6 @@
 {
-  "name": "koa-json-filter",
-  "version": "0.0.1",
+  "name": "@koa/json-filter",
+  "version": "1.0.0",
   "repository": "koajs/json-filter",
   "description": "Middleware allowing the client to filter the response to only what they need",
   "keywords": [
@@ -25,5 +25,7 @@
     "test-cov": "istanbul cover _mocha",
     "test-travis": "istanbul cover _mocha --report lcovonly"
   },
-  "files": ["index.js"]
+  "files": [
+    "index.js"
+  ]
 }

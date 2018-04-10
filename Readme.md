@@ -9,7 +9,7 @@ so this is just a simple key filter.
 ## Installation
 
 ```
-$ npm install koa-json-filter
+$ npm install @koa/json-filter
 ```
 
 Please note that if you're using an earlier version of koa 2 with function generator you need to install the older version `0.0.1`
@@ -35,7 +35,7 @@ Script:
 
 ```js
 const Koa = require('koa');
-const filter = require('koa-json-filter');
+const filter = require('@koa/json-filter');
 
 const app = new Koa();
 
@@ -69,7 +69,7 @@ Script:
 
 ```js
 const Koa = require('koa');
-const filter = require('koa-json-filter');
+const filter = require('@koa/json-filter');
 
 const app = new Koa();
 
